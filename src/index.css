@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 20% 15%;
+
+    --primary: 200 85% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 180 50% 92%;
+    --secondary-foreground: 200 85% 25%;
+
+    --muted: 200 20% 95%;
+    --muted-foreground: 200 10% 45%;
+
+    --accent: 175 60% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 25% 88%;
+    --input: 200 25% 88%;
+    --ring: 175 60% 45%;
+
+    --radius: 0.75rem;
+    
+    /* Raja Ampat Theme Colors */
+    --ocean-blue: 200 85% 25%;
+    --turquoise: 175 60% 45%;
+    --coral: 15 85% 65%;
+    --sand: 40 35% 88%;
+    --tropical-green: 145 50% 45%;
+    
+    /* Gradients */
+    --gradient-ocean: linear-gradient(135deg, hsl(200 85% 35%), hsl(175 60% 45%));
+    --gradient-tropical: linear-gradient(180deg, hsl(175 60% 45%), hsl(200 85% 25%));
+    --gradient-hero: linear-gradient(135deg, hsl(200 85% 25% / 0.95), hsl(175 60% 45% / 0.85));
+    
+    /* Shadows */
+    --shadow-ocean: 0 10px 40px -10px hsl(200 85% 25% / 0.3);
+    --shadow-card: 0 4px 20px hsl(200 20% 50% / 0.1);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 200 40% 8%;
+    --foreground: 200 15% 95%;
+
+    --card: 200 35% 12%;
+    --card-foreground: 200 15% 95%;
+
+    --popover: 200 35% 12%;
+    --popover-foreground: 200 15% 95%;
+
+    --primary: 175 60% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 200 30% 18%;
+    --secondary-foreground: 200 15% 95%;
+
+    --muted: 200 30% 18%;
+    --muted-foreground: 200 15% 70%;
+
+    --accent: 175 60% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 30% 20%;
+    --input: 200 30% 20%;
+    --ring: 175 60% 45%;
+    
+    --sidebar-background: 200 40% 10%;
+    --sidebar-foreground: 200 15% 90%;
+    --sidebar-primary: 175 60% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 200 30% 15%;
+    --sidebar-accent-foreground: 200 15% 90%;
+    --sidebar-border: 200 30% 18%;
+    --sidebar-ring: 175 60% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-ocean {
+    background: var(--gradient-ocean);
+  }
+  
+  .bg-gradient-tropical {
+    background: var(--gradient-tropical);
+  }
+  
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .shadow-ocean {
+    box-shadow: var(--shadow-ocean);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+}

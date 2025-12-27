@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launcher - Dinas PUPR Papua Barat Daya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #06b6d4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .status {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .status-title {
+            font-weight: bold;
+            color: #166534;
+            margin-bottom: 5px;
+        }
+
+        .status-text {
+            color: #15803d;
+            font-size: 14px;
+        }
+
+        .url-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #1e40af;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af, #06b6d4);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #1e40af;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .instructions {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .instructions-title {
+            font-weight: bold;
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #78350f;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .help {
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🏛️ Dinas PUPR Papua Barat Daya</h1>
+        <div class="subtitle">Launcher Aplikasi</div>
+
+        <div class="status">
+            <div class="status-title">✅ Server Aktif</div>
+            <div class="status-text">Server development berjalan dengan baik</div>
+        </div>
+
+        <div class="url-box">
+            http://127.0.0.1:3000/
+        </div>
+
+        <div class="btn-group">
+            <a href="http://127.0.0.1:3000/" class="btn btn-primary" target="_blank">
+                🚀 Buka Aplikasi
+            </a>
+            <a href="http://127.0.0.1:3000/test.html" class="btn btn-secondary" target="_blank">
+                🧪 Buka Halaman Test
+            </a>
+            <a href="http://localhost:3000/" class="btn btn-secondary" target="_blank">
+                🔄 Coba localhost:3000
+            </a>
+        </div>
+
+        <div class="instructions">
+            <div class="instructions-title">📋 Jika Tombol Tidak Berfungsi:</div>
+            <ol>
+                <li>Copy URL: <code>http://127.0.0.1:3000/</code></li>
+                <li>Buka tab baru di browser</li>
+                <li>Paste URL di address bar</li>
+                <li>Tekan Enter</li>
+            </ol>
+        </div>
+
+        <div class="help">
+            Jika masih bermasalah, coba browser lain (Chrome/Edge)
+        </div>
+    </div>
+
+    <script>
+        // Auto-check if server is accessible
+        fetch('http://127.0.0.1:3000/')
+            .then(response => {
+                if (response.ok) {
+                    console.log('✅ Server accessible');
+                }
+            })
+            .catch(error => {
+                console.error('❌ Cannot reach server:', error);
+                alert('Peringatan: Server mungkin tidak dapat diakses. Pastikan npm run dev masih berjalan.');
+            });
+    </script>
+</body>
+
+</html>

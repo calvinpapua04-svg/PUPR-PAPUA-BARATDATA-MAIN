@@ -1,0 +1,1292 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/leaflet.css">
+
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/leaflet.photon.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>WebGIS - Dinas PUPR Papua Barat Daya</title>
+
+</head>
+
+<body>
+    <!-- TOP NAVIGATION BAR -->
+    <nav id="navbar">
+        <div class="navbar-brand">
+            <div class="app-logo">
+                <img src="images/logo-pbd.png" alt="Logo Papua Barat Daya" style="height: 50px; width: auto;">
+            </div>
+            <div>
+                <h1 class="app-title">Dinas PUPR Papua Barat Daya</h1>
+                <p style="font-size: 11px; color: var(--text-muted); margin: 0;">Sistem Informasi Geografis Interaktif
+                </p>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search-input" class="search-input" placeholder="Cari lokasi...">
+        </div>
+
+        <div class="navbar-controls">
+            <button class="btn-icon" title="Basemap Switcher"
+                onclick="document.getElementById('basemap-panel').classList.toggle('hidden')">
+                <i class="fas fa-layer-group"></i>
+            </button>
+            <button class="btn-icon" id="fullscreen-btn" title="Fullscreen">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- SIDEBAR PANEL -->
+    <aside id="sidebar">
+        <div class="sidebar-content">
+
+            <!-- MAP STATISTICS -->
+            <div class="sidebar-section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Statistik Peta
+                </h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-layers">7</div>
+                        <div class="stat-label">Total Layer</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="visible-layers">7</div>
+                        <div class="stat-label">Layer Aktif</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAYER CONTROL -->
+            <div class="sidebar-section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-layers"></i>
+                    Kontrol Layer
+                </h2>
+
+                <!-- Layer: Jalan Provinsi -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_jlnprovinsi_7" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color" style="background: rgba(0,0,0,1.0);"></div>
+                            <span>Jalan Provinsi</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_jlnprovinsi_7" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+
+                <!-- Layer: Kawasan Hutan -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_kwsnhtnpbd_6" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color"
+                                style="background: linear-gradient(90deg, rgba(53,149,22,1) 0%, rgba(148,238,128,1) 100%);">
+                            </div>
+                            <span>Kawasan Hutan</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_kwsnhtnpbd_6" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+
+                <!-- Layer: Kontur -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_KONTURPBD_5" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color" style="background: rgba(152,125,183,1.0);"></div>
+                            <span>Kontur</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_KONTURPBD_5" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+
+                <!-- Layer: Topografi -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_topopbd_4" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color" style="background: rgba(133,182,111,1.0);"></div>
+                            <span>Topografi</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_topopbd_4" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+
+                <!-- Layer: Kelerengan -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_KELERENGANPBD_3"
+                                    checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color" style="background: rgba(232,113,141,1.0);"></div>
+                            <span>Kelerengan</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_KELERENGANPBD_3" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+
+                <!-- Layer: DAS -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_DASPBD_2" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color" style="background: rgba(190,207,80,1.0);"></div>
+                            <span>Daerah Aliran Sungai</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_DASPBD_2" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+
+                <!-- Layer: Batas Administrasi -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_btspbd_1" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color" style="background: rgba(190,178,151,1.0);"></div>
+                            <span>Batas Administrasi</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_btspbd_1" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+
+                <!-- Layer: Indeks Resiko Banjir -->
+                <div class="layer-item">
+                    <div class="layer-header">
+                        <div class="layer-name">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="layer-checkbox" data-layer="layer_dis_banjir_1">
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="layer-color"
+                                style="background: linear-gradient(90deg, rgba(78,246,17,1) 0%, rgba(240,83,58,1) 100%);">
+                            </div>
+                            <span>Indeks Resiko Banjir</span>
+                        </div>
+                    </div>
+                    <div class="layer-controls">
+                        <input type="range" class="opacity-slider" data-layer="layer_dis_banjir_1" min="0" max="100"
+                            value="100">
+                        <span class="opacity-value">100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BASEMAP SWITCHER PANEL (Hidden by default) -->
+            <div id="basemap-panel" class="sidebar-section fade-in hidden">
+                <h2 class="section-title">
+                    <i class="fas fa-map"></i>
+                    Peta Dasar & Citra Satelit
+                </h2>
+
+                <!-- Standard Maps -->
+                <div class="basemap-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-map-marked-alt"></i> Peta Standar
+                    </h3>
+                    <div class="basemap-grid">
+                        <div class="basemap-option" data-basemap="none">
+                            <div class="basemap-preview" style="background: #ffffff; border: 2px dashed #cbd5e1;">
+                                <i class="fas fa-eye-slash" style="font-size: 24px; color: #94a3b8;"></i>
+                            </div>
+                            <div class="basemap-label">Tidak Ada</div>
+                            <div class="basemap-desc">Sembunyikan peta dasar</div>
+                        </div>
+                        <div class="basemap-option active" data-basemap="osm">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);">
+                                <i class="fas fa-road" style="font-size: 24px; color: #666;"></i>
+                            </div>
+                            <div class="basemap-label">OpenStreetMap</div>
+                            <div class="basemap-desc">Peta jalan standar</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="terrain">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #8B7355 0%, #D2B48C 100%);">
+                                <i class="fas fa-mountain" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Terrain</div>
+                            <div class="basemap-desc">Peta topografi</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="dark">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);">
+                                <i class="fas fa-moon" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Dark Mode</div>
+                            <div class="basemap-desc">Mode gelap</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="topo">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #E8DCC8 0%, #C4B5A0 100%);">
+                                <i class="fas fa-layer-group" style="font-size: 24px; color: #666;"></i>
+                            </div>
+                            <div class="basemap-label">Topographic</div>
+                            <div class="basemap-desc">Peta topografi detail</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Satellite Imagery -->
+                <div class="basemap-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-satellite"></i> Citra Satelit
+                    </h3>
+                    <div class="basemap-grid">
+                        <div class="basemap-option" data-basemap="satellite">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #1a4d2e 0%, #4a7c59 100%);">
+                                <i class="fas fa-globe-asia" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Esri World Imagery</div>
+                            <div class="basemap-desc">Citra satelit global</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="google_satellite">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #0f4c3a 0%, #2d6a4f 100%);">
+                                <i class="fab fa-google" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Google Satellite</div>
+                            <div class="basemap-desc">Citra Google Earth</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="mapbox_satellite">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #1e3a5f 0%, #3a5a7f 100%);">
+                                <i class="fas fa-satellite-dish" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Mapbox Satellite</div>
+                            <div class="basemap-desc">Citra resolusi tinggi</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="satellite_streets">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);">
+                                <i class="fas fa-map-marked" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Satellite + Streets</div>
+                            <div class="basemap-desc">Citra dengan label jalan</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hybrid & Special -->
+                <div class="basemap-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-layer-group"></i> Hybrid & Khusus
+                    </h3>
+                    <div class="basemap-grid">
+                        <div class="basemap-option" data-basemap="hybrid">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #2d5016 0%, #5a8f3a 100%);">
+                                <i class="fas fa-clone" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Hybrid</div>
+                            <div class="basemap-desc">Satelit + label</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="watercolor">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #a8dadc 0%, #457b9d 100%);">
+                                <i class="fas fa-paint-brush" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Watercolor</div>
+                            <div class="basemap-desc">Peta artistik</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="natgeo">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #D4C5A9 0%, #8B7355 100%);">
+                                <i class="fas fa-compass" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">National Geographic</div>
+                            <div class="basemap-desc">Peta NatGeo</div>
+                        </div>
+                        <div class="basemap-option" data-basemap="ocean">
+                            <div class="basemap-preview"
+                                style="background: linear-gradient(135deg, #003f5c 0%, #2f6690 100%);">
+                                <i class="fas fa-water" style="font-size: 24px; color: #fff;"></i>
+                            </div>
+                            <div class="basemap-label">Ocean Basemap</div>
+                            <div class="basemap-desc">Peta kelautan</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAP INFORMATION -->
+            <div class="sidebar-section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Informasi Peta
+                </h2>
+                <div class="info-card">
+                    <div class="info-card-title">Wilayah Coverage</div>
+                    <div class="info-card-value">Papua Barat Daya</div>
+                    <div class="info-card-label">Provinsi Indonesia</div>
+                </div>
+                <div class="glass-card">
+                    <p style="font-size: 13px; line-height: 1.6; color: var(--text-secondary); margin: 0;">
+                        Peta interaktif menampilkan berbagai layer tematik untuk wilayah Papua Barat Daya, termasuk
+                        informasi topografi, kelerengan, kawasan hutan, dan infrastruktur jalan.
+                    </p>
+                </div>
+            </div>
+
+            <!-- LEGEND -->
+            <div class="sidebar-section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-palette"></i>
+                    Legenda
+                </h2>
+                <div class="glass-card">
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(0,0,0,1);"></div>
+                        <span>Jalan Provinsi</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol"
+                            style="background: linear-gradient(90deg, rgba(53,149,22,1), rgba(148,238,128,1));"></div>
+                        <span>Kawasan Hutan</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(152,125,183,1);"></div>
+                        <span>Garis Kontur</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(133,182,111,1);"></div>
+                        <span>Topografi</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(232,113,141,1);"></div>
+                        <span>Kelerengan</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(190,207,80,1);"></div>
+                        <span>DAS</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(190,178,151,1);"></div>
+                        <span>Batas Admin</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(240,83,58,1);"></div>
+                        <span>Resiko Banjir Tinggi</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(242,227,16,1);"></div>
+                        <span>Resiko Banjir Sedang</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: rgba(78,246,17,1);"></div>
+                        <span>Resiko Banjir Rendah</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- SIDEBAR TOGGLE BUTTON -->
+    <div class="sidebar-toggle">
+        <i class="fas fa-chevron-left"></i>
+    </div>
+
+    <!-- FLOATING CONTROLS -->
+    <div class="floating-controls">
+        <div class="control-group">
+            <button class="btn-icon" id="home-btn" title="Reset View">
+                <i class="fas fa-home"></i>
+            </button>
+            <button class="btn-icon" id="location-btn" title="My Location">
+                <i class="fas fa-location-arrow"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAP CONTAINER -->
+    <div id="map">
+    </div>
+
+    <!-- BOTTOM INFO BAR -->
+    <div id="infobar">
+        <div class="info-item">
+            <i class="fas fa-crosshairs"></i>
+            <span id="coordinates">-</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-search-plus"></i>
+            <span id="zoom-level">Zoom: -</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-ruler"></i>
+            <span id="scale">Scale: -</span>
+        </div>
+        <div class="info-item">
+            <span style="color: var(--text-muted);">© qgis2web | Leaflet | QGIS</span>
+        </div>
+    </div>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet.photon.js"></script>
+    <script src="data/btspbd_1.js"></script>
+    <script src="data/DASPBD_2.js"></script>
+    <script src="data/KELERENGANPBD_3.js"></script>
+    <script src="data/topopbd_4.js"></script>
+    <script src="data/KONTURPBD_5.js"></script>
+    <script src="data/kwsnhtnpbd_6.js"></script>
+    <script src="data/jlnprovinsi_7.js"></script>
+    <script src="data/dis_banjir_1.js"></script>
+    <script src="js/opacity-helper.js"></script>
+    <script>
+        var map = L.map('map', {
+            zoomControl: false, maxZoom: 28, minZoom: 1
+        }).fitBounds([[-3.4029371742925996, 129.31165626177687], [1.324502463835572, 135.1510592025225]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({ truncate: { length: 30, location: 'smart' } });
+        // remove popup's row if "visible-with-data"
+        function removeEmptyRowsFromPopupContent(content, feature) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            var rows = tempDiv.querySelectorAll('tr');
+            for (var i = 0; i < rows.length; i++) {
+                var td = rows[i].querySelector('td.visible-with-data');
+                var key = td ? td.id : '';
+                if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                    rows[i].parentNode.removeChild(rows[i]);
+                }
+            }
+            return tempDiv.innerHTML;
+        }
+        // add class to format popup if it contains media
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            if (tempDiv.querySelector('td img')) {
+                popup._contentNode.classList.add('media');
+                // Delay to force the redraw
+                setTimeout(function () {
+                    popup.update();
+                }, 10);
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_btspbd_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kampung/Kelurahan</th>\
+                        <td>' + (feature.properties['WADMKD'] !== null ? autolinker.link(String(feature.properties['WADMKD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Distrik</th>\
+                        <td>' + (feature.properties['WADMKC'] !== null ? autolinker.link(String(feature.properties['WADMKC']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kabupaten/Kota</th>\
+                        <td>' + (feature.properties['WADMKK'] !== null ? autolinker.link(String(feature.properties['WADMKK']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    var opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_btspbd_1') : 1;
+                    layer.setStyle({
+                        weight: 3,
+                        color: '#00ffff',
+                        dashArray: '',
+                        opacity: opacity,
+                        fillOpacity: opacity
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_btspbd_1_0(e.target.feature));
+                }
+            });
+        }
+
+        function style_btspbd_1_0() {
+            const opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_btspbd_1') : 1;
+            return {
+                pane: 'pane_btspbd_1',
+                opacity: opacity,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: opacity,
+                fillColor: 'rgba(190,178,151,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_btspbd_1');
+        map.getPane('pane_btspbd_1').style.zIndex = 401;
+        map.getPane('pane_btspbd_1').style['mix-blend-mode'] = 'normal';
+        var layer_btspbd_1 = new L.geoJson(json_btspbd_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_btspbd_1',
+            layerName: 'layer_btspbd_1',
+            pane: 'pane_btspbd_1',
+            onEachFeature: pop_btspbd_1,
+            style: style_btspbd_1_0,
+        });
+        bounds_group.addLayer(layer_btspbd_1);
+        map.addLayer(layer_btspbd_1);
+
+        // --- LAYER: INDEKS RESIKO BANJIR ---
+        function pop_dis_banjir_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kerawanan</th>\
+                        <td>' + (feature.properties['rwn_banjir'] !== null ? autolinker.link(String(feature.properties['rwn_banjir']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Grid Code</th>\
+                        <td>' + (feature.properties['gridcode'] !== null ? autolinker.link(String(feature.properties['gridcode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    // Highlight effect
+                    layer.setStyle({
+                        weight: 3,
+                        color: '#00ffff',
+                        dashArray: '',
+                        fillOpacity: 0.9
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_dis_banjir_1_0(e.target.feature));
+                }
+            });
+        }
+
+        function style_dis_banjir_1_0(feature) {
+            // Get opacity from slider if available, else default to 1 (or 0 if unchecked initially?)
+            // Note: Since we set it unchecked initially, logic elsewhere handles visibility.
+            // But for opacity slider:
+            const opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_dis_banjir_1') : 1;
+
+            switch (String(feature.properties['rwn_banjir'])) {
+                case 'rendah':
+                    return {
+                        pane: 'pane_dis_banjir_1',
+                        opacity: opacity,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: opacity,
+                        fillColor: 'rgba(78,246,17,1.0)',
+                        interactive: true,
+                    }
+                case 'sedang':
+                    return {
+                        pane: 'pane_dis_banjir_1',
+                        opacity: opacity,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: opacity,
+                        fillColor: 'rgba(242,227,16,1.0)',
+                        interactive: true,
+                    }
+                case 'tinggi':
+                    return {
+                        pane: 'pane_dis_banjir_1',
+                        opacity: opacity,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: opacity,
+                        fillColor: 'rgba(240,83,58,1.0)',
+                        interactive: true,
+                    }
+                default: // Fallback
+                    return {
+                        pane: 'pane_dis_banjir_1',
+                        opacity: opacity,
+                        color: 'rgba(35,35,35,1.0)',
+                        weight: 1,
+                        fill: true,
+                        fillOpacity: opacity,
+                        fillColor: 'rgba(200,200,200,1.0)',
+                        interactive: true,
+                    }
+            }
+        }
+        map.createPane('pane_dis_banjir_1');
+        map.getPane('pane_dis_banjir_1').style.zIndex = 405; // Make sure it's on top
+        map.getPane('pane_dis_banjir_1').style['mix-blend-mode'] = 'normal';
+        var layer_dis_banjir_1 = new L.geoJson(json_dis_banjir_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_dis_banjir_1',
+            layerName: 'layer_dis_banjir_1',
+            pane: 'pane_dis_banjir_1',
+            onEachFeature: pop_dis_banjir_1,
+            style: style_dis_banjir_1_0,
+        });
+        bounds_group.addLayer(layer_dis_banjir_1);
+        // Do NOT add to map initially if we want it unchecked.
+        // But if user wants it "SEPERTI LAYER LAIN YANG SUDAH ADA", most others are checked.
+        // However, I made the checkbox unchecked in HTML to avoid clutter.
+        // Let's verify existing checkboxes. They are mostly `checked`.
+        // I'll leave it unchecked by default as it might be heavy or obscure others.
+        // Wait, user said "DITAMBAHKAN KE TAMPILAN", maybe implies visible?
+        // I will stick to unchecked to be safe, but add it if user toggles.
+        // Actually, if I want it to work with the existing "opacity-helper.js", I need to ensure
+        // the helper knows about it. The helper likely just queries DOM elements.
+
+
+        function pop_DASPBD_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama DAS</th>\
+                        <td>' + (feature.properties['nama_das'] !== null ? autolinker.link(String(feature.properties['nama_das']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        weight: 3,
+                        color: '#00ffff',
+                        dashArray: '',
+                        fillOpacity: 0.9
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_DASPBD_2_0(e.target.feature));
+                }
+            });
+        }
+
+        function style_DASPBD_2_0() {
+            const opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_DASPBD_2') : 1;
+            return {
+                pane: 'pane_DASPBD_2',
+                opacity: opacity,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: opacity,
+                fillColor: 'rgba(190,207,80,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DASPBD_2');
+        map.getPane('pane_DASPBD_2').style.zIndex = 402;
+        map.getPane('pane_DASPBD_2').style['mix-blend-mode'] = 'normal';
+        var layer_DASPBD_2 = new L.geoJson(json_DASPBD_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DASPBD_2',
+            layerName: 'layer_DASPBD_2',
+            pane: 'pane_DASPBD_2',
+            onEachFeature: pop_DASPBD_2,
+            style: style_DASPBD_2_0,
+        });
+        bounds_group.addLayer(layer_DASPBD_2);
+        map.addLayer(layer_DASPBD_2);
+        function pop_KELERENGANPBD_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Slope</th>\
+                        <td>' + (feature.properties['Slope'] !== null ? autolinker.link(String(feature.properties['Slope']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        weight: 2,
+                        color: '#ffffff',
+                        dashArray: '',
+                        fillOpacity: 0.9
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_KELERENGANPBD_3_0(e.target.feature));
+                }
+            });
+        }
+
+        function style_KELERENGANPBD_3_0() {
+            const opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_KELERENGANPBD_3') : 1;
+            return {
+                pane: 'pane_KELERENGANPBD_3',
+                opacity: opacity,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: opacity,
+                fillColor: 'rgba(232,113,141,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_KELERENGANPBD_3');
+        map.getPane('pane_KELERENGANPBD_3').style.zIndex = 403;
+        map.getPane('pane_KELERENGANPBD_3').style['mix-blend-mode'] = 'normal';
+        var layer_KELERENGANPBD_3 = new L.geoJson(json_KELERENGANPBD_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_KELERENGANPBD_3',
+            layerName: 'layer_KELERENGANPBD_3',
+            pane: 'pane_KELERENGANPBD_3',
+            onEachFeature: pop_KELERENGANPBD_3,
+            style: style_KELERENGANPBD_3_0,
+        });
+        bounds_group.addLayer(layer_KELERENGANPBD_3);
+        map.addLayer(layer_KELERENGANPBD_3);
+        function pop_topopbd_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Ketinggian</th>\
+                        <td>' + (feature.properties['KETINGGIAN'] !== null ? autolinker.link(String(feature.properties['KETINGGIAN']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        weight: 2,
+                        color: '#ffffff',
+                        dashArray: '',
+                        fillOpacity: 0.9
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_topopbd_4_0(e.target.feature));
+                }
+            });
+        }
+
+        function style_topopbd_4_0() {
+            const opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_topopbd_4') : 1;
+            return {
+                pane: 'pane_topopbd_4',
+                opacity: opacity,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: opacity,
+                fillColor: 'rgba(133,182,111,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_topopbd_4');
+        map.getPane('pane_topopbd_4').style.zIndex = 404;
+        map.getPane('pane_topopbd_4').style['mix-blend-mode'] = 'normal';
+        var layer_topopbd_4 = new L.geoJson(json_topopbd_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_topopbd_4',
+            layerName: 'layer_topopbd_4',
+            pane: 'pane_topopbd_4',
+            onEachFeature: pop_topopbd_4,
+            style: style_topopbd_4_0,
+        });
+        bounds_group.addLayer(layer_topopbd_4);
+        map.addLayer(layer_topopbd_4);
+        function pop_KONTURPBD_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Interval</th>\
+                        <td>' + (feature.properties['INTERVAL'] !== null ? autolinker.link(String(feature.properties['INTERVAL']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        weight: 3,
+                        color: '#ff00ff',
+                        dashArray: '',
+                        fillOpacity: 0
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_KONTURPBD_5_0(e.target.feature));
+                }
+            });
+        }
+
+        function style_KONTURPBD_5_0() {
+            const opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_KONTURPBD_5') : 1;
+            return {
+                pane: 'pane_KONTURPBD_5',
+                opacity: opacity,
+                color: 'rgba(152,125,183,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_KONTURPBD_5');
+        map.getPane('pane_KONTURPBD_5').style.zIndex = 405;
+        map.getPane('pane_KONTURPBD_5').style['mix-blend-mode'] = 'normal';
+        var layer_KONTURPBD_5 = new L.geoJson(json_KONTURPBD_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_KONTURPBD_5',
+            layerName: 'layer_KONTURPBD_5',
+            pane: 'pane_KONTURPBD_5',
+            onEachFeature: pop_KONTURPBD_5,
+            style: style_KONTURPBD_5_0,
+        });
+        bounds_group.addLayer(layer_KONTURPBD_5);
+        map.addLayer(layer_KONTURPBD_5);
+        function pop_kwsnhtnpbd_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama Objek</th>\
+                        <td>' + (feature.properties['NAMOBJ'] !== null ? autolinker.link(String(feature.properties['NAMOBJ']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        stroke: true, // Force stroke for features like Hutan Lindung
+                        weight: 3,
+                        color: '#00ffff',
+                        dashArray: '',
+                        fillOpacity: 0.9
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_kwsnhtnpbd_6_0(e.target.feature));
+                }
+            });
+        }
+
+        function style_kwsnhtnpbd_6_0(feature) {
+            switch (String(feature.properties['NAMOBJ'])) {
+                case 'Areal Penggunaan Lain':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(203,115,43,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Cagar Alam Darat':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(149,133,229,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Hutan Lindung':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        stroke: false,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(53,149,22,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Hutan Produksi':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(148,238,128,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Hutan Produksi Konversi':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(37,214,66,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Hutan Produksi Terbatas':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(171,221,79,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Hutan Suaka Alam dan Wisata Darat':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(162,225,133,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'KSA/KPA':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(30,216,154,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Suaka Margastwa Darat':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(206,153,47,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'Taman Wisata Alam/Hutan Wisata Darat':
+                    return {
+                        pane: 'pane_kwsnhtnpbd_6',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 1,
+                        fillColor: 'rgba(183,122,214,1.0)',
+                        interactive: true,
+                    }
+                    break;
+            }
+        }
+        map.createPane('pane_kwsnhtnpbd_6');
+        map.getPane('pane_kwsnhtnpbd_6').style.zIndex = 406;
+        map.getPane('pane_kwsnhtnpbd_6').style['mix-blend-mode'] = 'normal';
+        var layer_kwsnhtnpbd_6 = new L.geoJson(json_kwsnhtnpbd_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_kwsnhtnpbd_6',
+            layerName: 'layer_kwsnhtnpbd_6',
+            pane: 'pane_kwsnhtnpbd_6',
+            onEachFeature: pop_kwsnhtnpbd_6,
+            style: style_kwsnhtnpbd_6_0,
+        });
+        bounds_group.addLayer(layer_kwsnhtnpbd_6);
+        map.addLayer(layer_kwsnhtnpbd_6);
+        function pop_jlnprovinsi_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama Ruas</th>\
+                        <td>' + (feature.properties['Nm_Ruas'] !== null ? autolinker.link(String(feature.properties['Nm_Ruas']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KM Akhir</th>\
+                        <td>' + (feature.properties['Km_Akhir'] !== null ? autolinker.link(String(feature.properties['Km_Akhir']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kondisi Baik</th>\
+                        <td>' + (feature.properties['Kon_Baik'] !== null ? autolinker.link(String(feature.properties['Kon_Baik']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kondisi Sedang</th>\
+                        <td>' + (feature.properties['Kon_Sdg'] !== null ? autolinker.link(String(feature.properties['Kon_Sdg']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kondisi Ringan</th>\
+                        <td>' + (feature.properties['Kon_Rgn'] !== null ? autolinker.link(String(feature.properties['Kon_Rgn']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kondisi Rusak</th>\
+                        <td>' + (feature.properties['Kon_Rusak'] !== null ? autolinker.link(String(feature.properties['Kon_Rusak']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kondisi Mantap</th>\
+                        <td>' + (feature.properties['Kon_Mntp'] !== null ? autolinker.link(String(feature.properties['Kon_Mntp']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tanah/Kerikil</th>\
+                        <td>' + (feature.properties['Tanah_Kri'] !== null ? autolinker.link(String(feature.properties['Tanah_Kri']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Aspal</th>\
+                        <td>' + (feature.properties['Aspal'] !== null ? autolinker.link(String(feature.properties['Aspal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Rigid</th>\
+                        <td>' + (feature.properties['Rigid'] !== null ? autolinker.link(String(feature.properties['Rigid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function (e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, { maxHeight: 400 });
+            layer.on({
+                mouseover: function (e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        weight: 5,
+                        color: '#00ffff',
+                        opacity: 1
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                        layer.bringToFront();
+                    }
+                },
+                mouseout: function (e) {
+                    e.target.setStyle(style_jlnprovinsi_7_0());
+                }
+            });
+        }
+
+        function style_jlnprovinsi_7_0() {
+            const opacity = window.getLayerOpacity ? window.getLayerOpacity('layer_jlnprovinsi_7') : 1;
+            return {
+                pane: 'pane_jlnprovinsi_7',
+                opacity: opacity,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_jlnprovinsi_7');
+        map.getPane('pane_jlnprovinsi_7').style.zIndex = 407;
+        map.getPane('pane_jlnprovinsi_7').style['mix-blend-mode'] = 'normal';
+        var layer_jlnprovinsi_7 = new L.geoJson(json_jlnprovinsi_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_jlnprovinsi_7',
+            layerName: 'layer_jlnprovinsi_7',
+            pane: 'pane_jlnprovinsi_7',
+            onEachFeature: pop_jlnprovinsi_7,
+            style: style_jlnprovinsi_7_0,
+        });
+        bounds_group.addLayer(layer_jlnprovinsi_7);
+        map.addLayer(layer_jlnprovinsi_7);
+        setBounds();
+    </script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

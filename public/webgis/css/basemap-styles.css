@@ -1,0 +1,102 @@
+/* ============================================
+   BASEMAP SWITCHER ENHANCED STYLES
+   ============================================ */
+.basemap-category {
+    margin-bottom: var(--spacing-lg, 1.5rem);
+}
+
+.category-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary, #cbd5e1);
+    margin-bottom: var(--spacing-md, 1rem);
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+    background: rgba(51, 65, 85, 0.4);
+    border-left: 3px solid var(--accent-primary, #3b82f6);
+    border-radius: var(--radius-sm, 0.375rem);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs, 0.5rem);
+}
+
+.category-title i {
+    color: var(--accent-primary, #3b82f6);
+    font-size: 16px;
+}
+
+.basemap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm, 0.75rem);
+}
+
+.basemap-option {
+    position: relative;
+    border-radius: var(--radius-md, 0.5rem);
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+    transition: all var(--transition-base, 300ms);
+    background: var(--accent-bg, #334155);
+    display: flex;
+    flex-direction: column;
+}
+
+.basemap-option:hover {
+    border-color: var(--accent-primary, #3b82f6);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+}
+
+.basemap-option.active {
+    border-color: var(--accent-primary, #3b82f6);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.basemap-option.active::before {
+    content: '✓';
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    background: var(--accent-primary, #3b82f6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.basemap-preview {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.basemap-label {
+    padding: var(--spacing-xs, 0.5rem) var(--spacing-sm, 0.75rem);
+    background: rgba(15, 23, 42, 0.95);
+    color: var(--text-primary, #f1f5f9);
+    font-size: 11px;
+    text-align: center;
+    font-weight: 600;
+    border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+}
+
+.basemap-desc {
+    padding: 4px var(--spacing-sm, 0.75rem);
+    padding-bottom: var(--spacing-xs, 0.5rem);
+    background: rgba(15, 23, 42, 0.95);
+    color: var(--text-muted, #94a3b8);
+    font-size: 10px;
+    text-align: center;
+}
